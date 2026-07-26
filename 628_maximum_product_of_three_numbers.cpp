@@ -1,19 +1,36 @@
 class Solution {
 public:
     int maximumProduct(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        int n=nums.size();
-        int p1=1;
-        int p2=1;
+        int max1=-2000;
+        int max2=-2000;
+        int max3 = -2000;
+        int min1 = 2000;
+        int min2 =2000;
 
-        for(int i=n-1;i>=n-3;i--){
-            p1 *= nums[i];
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>=max1){
+                max3=max2;
+                max2=max1;
+                max1=nums[i];
+            }
+
+            else if(nums[i]>=max2){
+                max3=max2;
+                max2=nums[i];
+            }else if(nums[i]>=max3){
+                max3=nums[i];
+            }
+
+            if(nums[i]<=min1){
+                min2=min1;
+                min1=nums[i];
+            }
+            else if(nums[i]<=min2){
+                min2=nums[i];
+            }
         }
 
-        p2 = nums[0]*nums[1]*nums[n-1];
-        cout<<p1<<" "<<p2<<endl;
-
-        return max(p1,p2);
+        return max(max1*max2*max3, max1*min1*min2);
 
     }
 };
