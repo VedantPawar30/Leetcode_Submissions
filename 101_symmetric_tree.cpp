@@ -1,0 +1,39 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* swapped(TreeNode* root){
+        if(!root) return NULL;
+        swap(root->left,root->right);
+
+        swapped(root->left);
+        swapped(root->right);
+        return root;
+    }
+
+    bool isSame(TreeNode* p, TreeNode* q){
+        if(!p && !q) return true;
+
+        else if((!p && q) || (!q && p)) return false;
+
+        else{
+            if(p->val == q->val){
+                return (isSame(p->left,q->left) && isSame(p->right,q->right));
+            }
+        }
+        return false;
+    }
+    bool isSymmetric(TreeNode* root) {
+        TreeNode* swapLeft = swapped(root->left);
+        return isSame(swapLeft,root->right);
+    }
+};
