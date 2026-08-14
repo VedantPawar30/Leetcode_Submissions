@@ -8,7 +8,7 @@ public:
         while(r<nums.size()){
             freq[nums[r]]++;
 
-            while(l<=r && freq[0]>k){
+            while(freq[0]>k){
                 freq[nums[l]]--;
                 l++;
             }
